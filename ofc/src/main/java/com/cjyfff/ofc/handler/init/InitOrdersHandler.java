@@ -16,7 +16,7 @@ public class InitOrdersHandler {
     @Autowired
     private OneInitOrderHandler oneInitOrderHandler;
 
-    @Async
+    @Async("acceptJobExecutor")
     public void run() {
         List<String> allInitOrders = getAllInitOrders();
 

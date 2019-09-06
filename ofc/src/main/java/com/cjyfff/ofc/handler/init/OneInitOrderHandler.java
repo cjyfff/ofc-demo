@@ -21,7 +21,7 @@ public class OneInitOrderHandler {
     @Autowired
     private OneInitOrderTransactionalHandler transactionalHandler;
 
-    @Async
+    @Async("initOrderExecutor")
     public void run(String orderId) {
         LockObject lockObject = null;
         try {
