@@ -28,31 +28,31 @@ import org.springframework.transaction.PlatformTransactionManager;
  * Created by jiashen on 2018/9/16.
  */
 @Configuration
-@MapperScan(basePackages = "com.cjyfff.dq.task.mapper")
+@MapperScan(basePackages = "com.cjyfff.ofc.mapper")
 public class MyBatisConfig {
     @Value("${druidOption.setTestWhileIdle}")
-    boolean testWhileIdle;
+    private boolean testWhileIdle;
 
     @Value("${druidOption.setMaxWait}")
-    int maxWait;
+    private int maxWait;
 
     @Value("${druidOption.setMinIdle}")
-    int minIdle;
+    private int minIdle;
 
     @Value("${druidOption.setMaxActive}")
-    int maxActive;
+    private int maxActive;
 
     @Value("${druidOption.setPoolPreparedStatements}")
-    boolean poolPreparedStatements;
+    private boolean poolPreparedStatements;
 
     @Value("${druidOption.setMaxPoolPreparedStatementPerConnectionSize}")
-    int maxPoolPreparedStatementPerConnectionSize;
+    private int maxPoolPreparedStatementPerConnectionSize;
 
     @Value("${druidOption.setMaxOpenPreparedStatements}")
-    int maxOpenPreparedStatements;
+    private int maxOpenPreparedStatements;
 
     @Value("${druidOption.dataSourceFilters}")
-    String dataSourceFilters;
+    private String dataSourceFilters;
 
     @Value("${druidOption.setMultiStatementAllow}")
     private boolean multiStatementAllow;
