@@ -30,7 +30,7 @@ jdbc.write.password=xxxxx
 
 jdbc.read.url=jdbc:mysql://127.0.0.1:3306/ofc?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=false
 jdbc.read.username=root
-jdbc.read.password=sqlcjycjy
+jdbc.read.password=xxxxx
 
 druidOption.allowHost=127.0.0.1
 druidOption.denyHost=192.168.1.73
