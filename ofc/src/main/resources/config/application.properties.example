@@ -21,6 +21,7 @@ xxl.job.executor.logpath=/tmp/jobhandler
 ### 执行器日志保存天数 [选填] ：值大于3时生效，启用执行器Log文件定期清理功能，否则不生效；
 xxl.job.executor.logretentiondays=-1
 
+redis-address=redis://127.0.0.1:6379
 
 jdbc.driverClassName=com.mysql.jdbc.Driver
 

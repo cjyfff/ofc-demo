@@ -10,6 +10,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,21 +19,26 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class OfcRedisClient {
+
+    @Value("redis-address")
+    private String redisAddress;
+
     private RedissonClient redisson;
 
     private void getRedissionClient() {
+        log.info("redission client init...");
         Config config = new Config();
         config.setTransportMode(TransportMode.NIO);
-        config.useSingleServer().setAddress("redis://127.0.0.1:6379");
-        redisson = Redisson.create(config);
+        config.useSingleServer().setAddress(redisAddress);
+        this.redisson = Redisson.create(config);
     }
 
     public LockObject tryLock(long waitTime, long leaseTime, TimeUnit unit, String lockKey) throws Exception {
-        if (redisson == null) {
+        if (this.redisson == null) {
             getRedissionClient();
         }
 
-        final RLock lock = redisson.getLock(lockKey);
+        final RLock lock = this.redisson.getLock(lockKey);
 
         boolean res =  lock.tryLock(waitTime, leaseTime, unit);
 
@@ -40,7 +46,7 @@ public class OfcRedisClient {
     }
 
     public void tryUnLock(LockObject lockObject) {
-        if (redisson == null) {
+        if (this.redisson == null) {
             log.warn("redisson is null");
             return;
         }
