@@ -27,5 +27,6 @@
 ### Spring settings
 config/application.properties
 application.properties
+ofc/src/main/resources/config/application.properties
 
 
