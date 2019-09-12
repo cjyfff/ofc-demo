@@ -18,7 +18,7 @@ public class InitOrderExecutorConfig {
 
         taskExecutor.setCorePoolSize(30);
         taskExecutor.setMaxPoolSize(40);
-        taskExecutor.setQueueCapacity(100);
+        taskExecutor.setQueueCapacity(500);
         taskExecutor.setKeepAliveSeconds(10);
         taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
         taskExecutor.setThreadNamePrefix("initOrderExecutor-");

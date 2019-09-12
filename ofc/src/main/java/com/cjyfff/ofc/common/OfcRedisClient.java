@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OfcRedisClient {
 
-    @Value("redis-address")
+    @Value("${redis-address}")
     private String redisAddress;
 
     private RedissonClient redisson;
