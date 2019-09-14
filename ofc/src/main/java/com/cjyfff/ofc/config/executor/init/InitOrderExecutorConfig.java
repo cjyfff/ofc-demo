@@ -21,7 +21,7 @@ public class InitOrderExecutorConfig {
         taskExecutor.setQueueCapacity(500);
         taskExecutor.setKeepAliveSeconds(10);
         taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
-        taskExecutor.setThreadNamePrefix("initOrderExecutor-");
+        taskExecutor.setThreadNamePrefix("initOrderT-");
 
         taskExecutor.initialize();
         return taskExecutor;

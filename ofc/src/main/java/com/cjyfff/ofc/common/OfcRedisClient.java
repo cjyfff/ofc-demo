@@ -11,6 +11,8 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,14 +20,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class OfcRedisClient {
+public class OfcRedisClient implements ApplicationListener<ApplicationReadyEvent> {
 
     @Value("${redis-address}")
     private String redisAddress;
 
     private RedissonClient redisson;
 
-    private void getRedissionClient() {
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
         log.info("redission client init...");
         Config config = new Config();
         config.setTransportMode(TransportMode.NIO);
@@ -34,9 +37,6 @@ public class OfcRedisClient {
     }
 
     public LockObject tryLock(long waitTime, long leaseTime, TimeUnit unit, String lockKey) throws Exception {
-        if (this.redisson == null) {
-            getRedissionClient();
-        }
 
         final RLock lock = this.redisson.getLock(lockKey);
 
