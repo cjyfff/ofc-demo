@@ -1,4 +1,4 @@
-package com.cjyfff.ofc.handler.init;
+package com.cjyfff.ofc.core.handler.init;
 
 import java.util.concurrent.TimeUnit;
 

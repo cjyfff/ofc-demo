@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cjyfff.ofc.mapper.OrderStatusExcLogMapper">
-  <resultMap id="BaseResultMap" type="com.cjyfff.ofc.model.OrderStatusExcLog">
+<mapper namespace="com.cjyfff.ofc.core.mapper.OrderStatusExcLogMapper">
+  <resultMap id="BaseResultMap" type="com.cjyfff.ofc.core.model.OrderStatusExcLog">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_id" jdbcType="CHAR" property="orderId" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -21,13 +21,13 @@
     delete from order_status_exc_log
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+  <insert id="insert" parameterType="com.cjyfff.ofc.core.model.OrderStatusExcLog">
     insert into order_status_exc_log (id, order_id, status, 
       status_exc_time, create_at)
     values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=CHAR}, #{status,jdbcType=INTEGER}, 
       #{statusExcTime,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+  <insert id="insertSelective" parameterType="com.cjyfff.ofc.core.model.OrderStatusExcLog">
     insert into order_status_exc_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cjyfff.ofc.core.model.OrderStatusExcLog">
     update order_status_exc_log
     <set>
       <if test="orderId != null">
@@ -82,7 +82,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+  <update id="updateByPrimaryKey" parameterType="com.cjyfff.ofc.core.model.OrderStatusExcLog">
     update order_status_exc_log
     set order_id = #{orderId,jdbcType=CHAR},
       status = #{status,jdbcType=INTEGER},

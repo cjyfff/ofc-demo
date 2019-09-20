@@ -1,4 +1,4 @@
-package com.cjyfff.ofc.handler.init;
+package com.cjyfff.ofc.core.handler.init;
 
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;

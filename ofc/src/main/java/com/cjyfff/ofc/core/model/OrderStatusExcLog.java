@@ -1,17 +1,17 @@
-package com.cjyfff.ofc.model;
+package com.cjyfff.ofc.core.model;
 
 import java.util.Date;
 
-public class Order {
+public class OrderStatusExcLog {
     private Long id;
 
     private String orderId;
 
     private Integer status;
 
-    private Date createAt;
+    private Integer statusExcTime;
 
-    private Date updateAt;
+    private Date createAt;
 
     public Long getId() {
         return id;
@@ -37,19 +37,19 @@ public class Order {
         this.status = status;
     }
 
+    public Integer getStatusExcTime() {
+        return statusExcTime;
+    }
+
+    public void setStatusExcTime(Integer statusExcTime) {
+        this.statusExcTime = statusExcTime;
+    }
+
     public Date getCreateAt() {
         return createAt;
     }
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
     }
 }

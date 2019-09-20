@@ -1,10 +1,9 @@
-package com.cjyfff.ofc.handler.init;
+package com.cjyfff.ofc.core.handler.init;
 
 import java.util.concurrent.TimeUnit;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by jiashen on 2019/9/6.

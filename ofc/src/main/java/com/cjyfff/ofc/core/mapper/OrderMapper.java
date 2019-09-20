@@ -1,6 +1,6 @@
-package com.cjyfff.ofc.mapper;
+package com.cjyfff.ofc.core.mapper;
 
-import com.cjyfff.ofc.model.Order;
+import com.cjyfff.ofc.core.model.Order;
 
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);

@@ -1,6 +1,6 @@
-package com.cjyfff.ofc.mapper;
+package com.cjyfff.ofc.core.mapper;
 
-import com.cjyfff.ofc.model.OrderStatusExcLog;
+import com.cjyfff.ofc.core.model.OrderStatusExcLog;
 
 public interface OrderStatusExcLogMapper {
     int deleteByPrimaryKey(Long id);

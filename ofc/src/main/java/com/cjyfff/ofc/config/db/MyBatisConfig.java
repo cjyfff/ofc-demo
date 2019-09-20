@@ -28,7 +28,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * Created by jiashen on 2018/9/16.
  */
 @Configuration
-@MapperScan(basePackages = "com.cjyfff.ofc.mapper")
+@MapperScan(basePackages = "com.cjyfff.ofc.core.mapper")
 public class MyBatisConfig {
     @Value("${druidOption.setTestWhileIdle}")
     private boolean testWhileIdle;
