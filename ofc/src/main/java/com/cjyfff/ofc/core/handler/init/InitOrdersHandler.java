@@ -1,11 +1,9 @@
 package com.cjyfff.ofc.core.handler.init;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import com.cjyfff.ofc.common.CommonUtils;
+import com.cjyfff.ofc.common.enums.OrderStatus;
+import com.cjyfff.ofc.core.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -19,6 +17,9 @@ public class InitOrdersHandler {
     @Autowired
     private OneInitOrderHandler oneInitOrderHandler;
 
+    @Autowired
+    private OrderMapper orderMapper;
+
     @Async("getOrdersExecutor")
     public void run() {
         List<String> allInitOrders = getAllInitOrders();
@@ -30,13 +31,7 @@ public class InitOrdersHandler {
 
 
     private List<String> getAllInitOrders() {
-        List<String> orderIds = new ArrayList<>();
-        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        for (int i = 0; i < 1000 ; i++) {
-            String o = "D" + date + CommonUtils.lpad(String.valueOf(i), 3, "0");
-            orderIds.add(o);
-        }
-        return orderIds;
+        return orderMapper.selectOrderIdsByStatus(OrderStatus.NEW.getStatus());
     }
 
 

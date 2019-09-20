@@ -1,5 +1,7 @@
 package com.cjyfff.ofc.core.mapper;
 
+import java.util.List;
+
 import com.cjyfff.ofc.core.model.Order;
 
 public interface OrderMapper {
@@ -10,6 +12,10 @@ public interface OrderMapper {
     int insertSelective(Order record);
 
     Order selectByPrimaryKey(Long id);
+
+    List<String> selectOrderIdsByStatus(Integer status);
+
+    Order selectOrderByOrderId(String orderId);
 
     int updateByPrimaryKeySelective(Order record);
 

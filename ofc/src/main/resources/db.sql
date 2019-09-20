@@ -14,12 +14,15 @@ CREATE TABLE `order`  (
 
 
 DROP TABLE IF EXISTS `order_status_exc_log`;
-CREATE TABLE `order_status_exc_log`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `order_id` char(24) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '订单id',
-  `status` int(12) NULL DEFAULT NULL COMMENT '订单状态',
-  `status_exc_time` int(12) NULL DEFAULT NULL COMMENT '订单状态处理次数',
-  `create_at` timestamp(6) NULL DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+CREATE TABLE `order_status_exc_log` (
+	`id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+	`order_id` CHAR(24) NULL DEFAULT NULL COMMENT '订单id',
+	`status` INT(12) NULL DEFAULT NULL COMMENT '订单状态',
+	`status_exc_time` INT(12) NULL DEFAULT NULL COMMENT '订单状态处理次数',
+	`create_at` TIMESTAMP(6) NULL DEFAULT NULL COMMENT '创建时间',
+	PRIMARY KEY (`id`),
+	INDEX `index_order_id_status` (`order_id`, `status`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
 

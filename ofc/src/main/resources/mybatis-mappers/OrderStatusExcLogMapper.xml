@@ -17,6 +17,12 @@
     from order_status_exc_log
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByOrderIdAndStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_status_exc_log
+    where order_id = #{orderId,jdbcType=CHAR} and status = #{status,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from order_status_exc_log
     where id = #{id,jdbcType=BIGINT}

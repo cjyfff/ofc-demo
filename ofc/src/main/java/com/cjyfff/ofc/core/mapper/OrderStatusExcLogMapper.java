@@ -1,6 +1,7 @@
 package com.cjyfff.ofc.core.mapper;
 
 import com.cjyfff.ofc.core.model.OrderStatusExcLog;
+import org.apache.ibatis.annotations.Param;
 
 public interface OrderStatusExcLogMapper {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface OrderStatusExcLogMapper {
     int insertSelective(OrderStatusExcLog record);
 
     OrderStatusExcLog selectByPrimaryKey(Long id);
+
+    OrderStatusExcLog selectByOrderIdAndStatus(@Param("orderId") String orderId, @Param("status") Integer status);
 
     int updateByPrimaryKeySelective(OrderStatusExcLog record);
 
