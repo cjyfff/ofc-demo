@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjyfff.ofc.mapper.OrderStatusExcLogMapper">
+  <resultMap id="BaseResultMap" type="com.cjyfff.ofc.model.OrderStatusExcLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="CHAR" property="orderId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_exc_time" jdbcType="INTEGER" property="statusExcTime" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, status, status_exc_time, create_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_status_exc_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_status_exc_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+    insert into order_status_exc_log (id, order_id, status, 
+      status_exc_time, create_at)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=CHAR}, #{status,jdbcType=INTEGER}, 
+      #{statusExcTime,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+    insert into order_status_exc_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusExcTime != null">
+        status_exc_time,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusExcTime != null">
+        #{statusExcTime,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+    update order_status_exc_log
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusExcTime != null">
+        status_exc_time = #{statusExcTime,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cjyfff.ofc.model.OrderStatusExcLog">
+    update order_status_exc_log
+    set order_id = #{orderId,jdbcType=CHAR},
+      status = #{status,jdbcType=INTEGER},
+      status_exc_time = #{statusExcTime,jdbcType=INTEGER},
+      create_at = #{createAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
