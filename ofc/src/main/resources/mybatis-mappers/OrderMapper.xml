@@ -14,21 +14,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from order
+    delete from `order`
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.cjyfff.ofc.core.model.Order">
-    insert into order (id, order_id, status, 
+    insert into `order` (id, order_id, status,
       create_at, update_at)
     values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=CHAR}, #{status,jdbcType=INTEGER}, 
       #{createAt,jdbcType=TIMESTAMP}, #{updateAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cjyfff.ofc.core.model.Order">
-    insert into order
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -65,7 +65,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cjyfff.ofc.core.model.Order">
-    update order
+    update `order`
     <set>
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=CHAR},
@@ -83,7 +83,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cjyfff.ofc.core.model.Order">
-    update order
+    update `order`
     set order_id = #{orderId,jdbcType=CHAR},
       status = #{status,jdbcType=INTEGER},
       create_at = #{createAt,jdbcType=TIMESTAMP},
