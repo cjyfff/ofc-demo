@@ -1,42 +1,42 @@
-package com.cjyfff.ofc.core.handler.init;
-
-import java.util.concurrent.TimeUnit;
+package com.cjyfff.ofc.core.handler.audit;
 
 import com.cjyfff.ofc.common.LockKey;
 import com.cjyfff.ofc.common.OfcRedisClient;
-import com.cjyfff.ofc.common.OfcRedisClient.LockObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 /**
- * Created by jiashen on 2019/9/5.
+ * @author jiashen
+ * @date 9/22/19 11:18 AM
  */
 @Slf4j
 @Component
-public class OneInitOrderHandler {
+public class OneAuditOrderHandler {
 
     @Autowired
     private OfcRedisClient ofcRedisClient;
 
     @Autowired
-    private OneInitOrderTransactionalHandler transactionalHandler;
+    private OneAuditOrderTransactionalHandler transactionalHandler;
 
-    @Async("initOrderExecutor")
+    @Async("auditOrderExecutor")
     public void run(String orderId) {
-        log.info("开始初始化订单：{}", orderId);
-        LockObject lockObject = null;
+        log.info("开始订单自动客审：{}", orderId);
+        OfcRedisClient.LockObject lockObject = null;
         try {
             lockObject = ofcRedisClient.tryLock(0, 60, TimeUnit.SECONDS, LockKey.getWorkFlowKey(orderId));
             if (! lockObject.isLockSuccess()) {
-                log.info("订单：{}，取不到初始化阶段的锁", orderId);
+                log.info("订单：{}，取不到客审阶段的锁", orderId);
                 return;
             }
 
-            transactionalHandler.initOrder(orderId);
+            transactionalHandler.auditOrder(orderId);
         } catch (Exception e) {
-            log.error("OneInitOrderHandler get error:", e);
+            log.error("OneAuditOrderHandler get error:", e);
         } finally {
             if (lockObject != null) {
                 ofcRedisClient.tryUnLock(lockObject);

@@ -22,15 +22,15 @@ public class InitOrdersHandler {
 
     @Async("getOrdersExecutor")
     public void run() {
-        List<String> allInitOrders = getAllInitOrders();
+        List<String> allNewOrders = getAllNewOrders();
 
-        for (String orderId : allInitOrders) {
+        for (String orderId : allNewOrders) {
             oneInitOrderHandler.run(orderId);
         }
     }
 
 
-    private List<String> getAllInitOrders() {
+    private List<String> getAllNewOrders() {
         return orderMapper.selectOrderIdsByStatus(OrderStatus.NEW.getStatus());
     }
 

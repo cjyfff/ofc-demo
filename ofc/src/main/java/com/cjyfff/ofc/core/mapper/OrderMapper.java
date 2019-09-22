@@ -3,7 +3,9 @@ package com.cjyfff.ofc.core.mapper;
 import java.util.List;
 
 import com.cjyfff.ofc.core.model.Order;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 
