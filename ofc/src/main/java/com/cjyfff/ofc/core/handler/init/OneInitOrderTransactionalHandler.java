@@ -37,6 +37,7 @@ public class OneInitOrderTransactionalHandler {
         }
 
         order.setStatus(OrderStatus.INIT.getStatus());
+        order.setUpdateAt(new Date());
         orderMapper.updateByPrimaryKeySelective(order);
 
         OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.INIT.getStatus());
