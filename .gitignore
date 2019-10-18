@@ -1,4 +1,4 @@
-/target/
+*/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -25,5 +25,8 @@
 /.nb-gradle/
 
 ### Spring settings
+config/application.properties
 application.properties
+ofc/src/main/resources/config/application.properties
+
 
