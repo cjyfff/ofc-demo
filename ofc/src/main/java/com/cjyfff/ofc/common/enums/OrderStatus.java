@@ -6,7 +6,8 @@ package com.cjyfff.ofc.common.enums;
 public enum OrderStatus {
     NEW(300, "新订单"),
     INIT(410, "初始化"),
-    AUDITED(500, "审核通过");
+    AUDITED(500, "审核通过"),
+    STOCK(600, "库房分配完成");
 
     private Integer status;
 
