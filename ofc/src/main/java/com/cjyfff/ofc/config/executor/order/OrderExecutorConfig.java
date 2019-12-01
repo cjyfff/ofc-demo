@@ -41,4 +41,34 @@ public class OrderExecutorConfig {
         taskExecutor.initialize();
         return taskExecutor;
     }
+
+    @Bean
+    public Executor orderStockExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+
+        taskExecutor.setCorePoolSize(15);
+        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setQueueCapacity(50);
+        taskExecutor.setKeepAliveSeconds(30);
+        taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
+        taskExecutor.setThreadNamePrefix("orderStockExecutor-");
+
+        taskExecutor.initialize();
+        return taskExecutor;
+    }
+
+    @Bean
+    public Executor sendOrderWmsExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+
+        taskExecutor.setCorePoolSize(15);
+        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setQueueCapacity(50);
+        taskExecutor.setKeepAliveSeconds(30);
+        taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
+        taskExecutor.setThreadNamePrefix("sendWmsExecutor-");
+
+        taskExecutor.initialize();
+        return taskExecutor;
+    }
 }
