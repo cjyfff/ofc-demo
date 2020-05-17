@@ -52,3 +52,12 @@ druidOption.setMaxOpenPreparedStatements=100
 druidOption.setMultiStatementAllow=true
 druidOption.dataSourceFilters=stat,wall,slf4j
 
+dubbo.scan.base-packages=com.cjyfff.ofc
+dubbo.protocols.dubbo.name=dubbo
+dubbo.protocols.dubbo.port=-1
+#dubbo.protocols.rest.name=rest
+#dubbo.protocols.rest.port=9090
+#dubbo.protocols.rest.server=netty
+dubbo.registry.address=spring-cloud://localhost
+feign.hystrix.enabled=true
+

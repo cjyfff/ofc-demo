@@ -24,5 +24,5 @@ CREATE TABLE `order_status_exc_log` (
 	INDEX `index_order_id_status` (`order_id`, `status`)
 )
 COLLATE='utf8_general_ci'
-ENGINE=InnoDB
+ENGINE=InnoDB;
 
