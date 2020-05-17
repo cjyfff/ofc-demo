@@ -1,4 +1,4 @@
-package com.cjyfff.ofc.core.vo;
+package com.cjyfff.ofc.common;
 
 public class DefaultWebApiResult {
     public final static String SUCCESS_CODE = "0";
