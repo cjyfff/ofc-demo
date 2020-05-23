@@ -1,6 +1,8 @@
 package com.cjyfff.ofc.core.handler.audit;
 
 import com.cjyfff.ofc.common.enums.OrderStatus;
+import com.cjyfff.ofc.core.handler.dq.DelayQueueServer;
+import com.cjyfff.ofc.core.handler.dq.DqAcceptMsgDto;
 import com.cjyfff.ofc.core.mapper.OrderMapper;
 import com.cjyfff.ofc.core.mapper.OrderStatusExcLogMapper;
 import com.cjyfff.ofc.core.model.Order;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author jiashen
@@ -25,6 +28,9 @@ public class OneAuditOrderTransactionalHandler {
     @Autowired
     private OrderStatusExcLogMapper orderStatusExcLogMapper;
 
+    @Autowired
+    private DelayQueueServer delayQueueServer;
+
     private static final long AUTO_AUDIT_MILLIS = 300 * 1000;
 
     @Transactional(rollbackFor = Exception.class)
@@ -38,20 +44,27 @@ public class OneAuditOrderTransactionalHandler {
             return;
         }
 
-        if ((System.currentTimeMillis() - order.getCreateAt().getTime()) < AUTO_AUDIT_MILLIS) {
-            log.debug("订单没达到自动客审时间：{}", orderId);
-            return;
-        }
+        DqAcceptMsgDto dqReqDto = new DqAcceptMsgDto();
+        dqReqDto.setTaskId(UUID.randomUUID().toString());
+        dqReqDto.setFunctionName("cloudOrderAutoAuditHandler");
+        String params = String.format("{\"orderId\": \"%s\"}", orderId);
+        dqReqDto.setParams(params);
+        dqReqDto.setRetryCount(new Byte("0"));
+        dqReqDto.setRetryInterval(1);
+        dqReqDto.setNonceStr(UUID.randomUUID().toString());
+        dqReqDto.setDelayTime(10L);
 
-        order.setStatus(OrderStatus.AUDITED.getStatus());
+        delayQueueServer.sendDelayTask(dqReqDto);
+
+        order.setStatus(OrderStatus.AUTO_AUDITING.getStatus());
         order.setUpdateAt(new Date());
         orderMapper.updateByPrimaryKeySelective(order);
 
-        OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.AUDITED.getStatus());
+        OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.AUTO_AUDITING.getStatus());
         if (orderStatusExcLog == null) {
             orderStatusExcLog = new OrderStatusExcLog();
             orderStatusExcLog.setOrderId(orderId);
-            orderStatusExcLog.setStatus(OrderStatus.AUDITED.getStatus());
+            orderStatusExcLog.setStatus(OrderStatus.AUTO_AUDITING .getStatus());
             orderStatusExcLog.setStatusExcTime(1);
             orderStatusExcLog.setCreateAt(new Date());
             orderStatusExcLogMapper.insertSelective(orderStatusExcLog);

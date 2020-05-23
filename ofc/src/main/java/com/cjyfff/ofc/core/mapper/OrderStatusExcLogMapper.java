@@ -14,7 +14,7 @@ public interface OrderStatusExcLogMapper {
 
     OrderStatusExcLog selectByPrimaryKey(Long id);
 
-    OrderStatusExcLog selectByOrderIdAndStatus(@Param("orderId") String orderId, @Param("status") Integer status);
+    OrderStatusExcLog  selectByOrderIdAndStatus(@Param("orderId") String orderId, @Param("status") Integer status);
 
     int updateByPrimaryKeySelective(OrderStatusExcLog record);
 
