@@ -52,12 +52,12 @@ public class OfcRedisClient implements ApplicationListener<ApplicationReadyEvent
         }
 
         if (lockObject == null) {
-            log.warn("lockObject is null");
+            log.info("lockObject is null");
             return;
         }
 
         if (! lockObject.lockSuccess) {
-            log.warn("lockObject.lockResult is false");
+            log.info("lockObject.lockResult is false, do not need unlock.");
             return;
         }
 
