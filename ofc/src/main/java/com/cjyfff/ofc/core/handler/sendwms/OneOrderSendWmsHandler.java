@@ -33,7 +33,7 @@ public class OneOrderSendWmsHandler {
         } catch (Exception e) {
             log.error("OneOrderSendWmsHandler get error:", e);
         } finally {
-            if (lockObject != null) {
+            if (lockObject != null && lockObject.isLockSuccess()) {
                 ofcRedisClient.tryUnLock(lockObject);
             }
         }

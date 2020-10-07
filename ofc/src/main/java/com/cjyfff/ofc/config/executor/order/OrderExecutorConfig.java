@@ -18,8 +18,8 @@ public class OrderExecutorConfig {
 
         taskExecutor.setCorePoolSize(30);
         taskExecutor.setMaxPoolSize(40);
-        taskExecutor.setQueueCapacity(500);
-        taskExecutor.setKeepAliveSeconds(10);
+        taskExecutor.setQueueCapacity(50);
+        taskExecutor.setKeepAliveSeconds(60);
         taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
         taskExecutor.setThreadNamePrefix("initOrderT-");
 
@@ -33,8 +33,8 @@ public class OrderExecutorConfig {
 
         taskExecutor.setCorePoolSize(30);
         taskExecutor.setMaxPoolSize(40);
-        taskExecutor.setQueueCapacity(500);
-        taskExecutor.setKeepAliveSeconds(10);
+        taskExecutor.setQueueCapacity(50);
+        taskExecutor.setKeepAliveSeconds(60);
         taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
         taskExecutor.setThreadNamePrefix("auditOrderT-");
 
@@ -49,7 +49,7 @@ public class OrderExecutorConfig {
         taskExecutor.setCorePoolSize(15);
         taskExecutor.setMaxPoolSize(20);
         taskExecutor.setQueueCapacity(50);
-        taskExecutor.setKeepAliveSeconds(30);
+        taskExecutor.setKeepAliveSeconds(60);
         taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
         taskExecutor.setThreadNamePrefix("orderStockExecutor-");
 
@@ -64,7 +64,7 @@ public class OrderExecutorConfig {
         taskExecutor.setCorePoolSize(15);
         taskExecutor.setMaxPoolSize(20);
         taskExecutor.setQueueCapacity(50);
-        taskExecutor.setKeepAliveSeconds(30);
+        taskExecutor.setKeepAliveSeconds(60);
         taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
         taskExecutor.setThreadNamePrefix("sendWmsExecutor-");
 
