@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
+ * 这个线程池处理默认的async任务，因为系统里的异步任务基本都指定了线程池，这个线程池基本没用
  * Created by jiashen on 2019/9/5.
  */
 @Configuration
