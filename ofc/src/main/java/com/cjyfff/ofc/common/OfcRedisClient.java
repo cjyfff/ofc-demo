@@ -27,6 +27,14 @@ public class OfcRedisClient {
         Config config = new Config();
         config.setTransportMode(TransportMode.NIO);
         config.useSingleServer().setAddress(redisAddress);
+        
+        // 这里我根据((核心数 * 2) + 有效磁盘数)配置 min
+        config.useSingleServer().setConnectionMinimumIdleSize(10);
+        config.useSingleServer().setConnectionPoolSize(30);
+        config.useSingleServer().setIdleConnectionTimeout(20000);
+        config.useSingleServer().setConnectTimeout(10000);
+        config.useSingleServer().setTimeout(10000);
+        
         this.redisson = Redisson.create(config);
     }
 
