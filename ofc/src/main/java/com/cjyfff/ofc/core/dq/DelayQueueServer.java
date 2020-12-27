@@ -1,4 +1,4 @@
-package com.cjyfff.ofc.core.handler.dq;
+package com.cjyfff.ofc.core.dq;
 
 import com.cjyfff.ofc.common.DefaultWebApiResult;
 import org.springframework.cloud.openfeign.FeignClient;

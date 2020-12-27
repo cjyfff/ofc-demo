@@ -9,9 +9,19 @@ public class Order {
 
     private Integer status;
 
+    private Integer handleStatus;
+
     private Date createAt;
 
     private Date updateAt;
+
+    public Integer getHandleStatus() {
+        return handleStatus;
+    }
+
+    public void setHandleStatus(Integer handleStatus) {
+        this.handleStatus = handleStatus;
+    }
 
     public Long getId() {
         return id;

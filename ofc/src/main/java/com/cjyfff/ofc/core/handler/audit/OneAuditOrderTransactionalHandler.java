@@ -1,8 +1,9 @@
 package com.cjyfff.ofc.core.handler.audit;
 
+import com.cjyfff.ofc.common.enums.OrderHandleStatus;
 import com.cjyfff.ofc.common.enums.OrderStatus;
-import com.cjyfff.ofc.core.handler.dq.DelayQueueServer;
-import com.cjyfff.ofc.core.handler.dq.DqAcceptMsgDto;
+import com.cjyfff.ofc.core.dq.DelayQueueServer;
+import com.cjyfff.ofc.core.dq.DqAcceptMsgDto;
 import com.cjyfff.ofc.core.mapper.OrderMapper;
 import com.cjyfff.ofc.core.mapper.OrderStatusExcLogMapper;
 import com.cjyfff.ofc.core.model.Order;
@@ -37,6 +38,12 @@ public class OneAuditOrderTransactionalHandler {
     public void auditOrder(String orderId) throws Exception {
         log.info("处理订单自动客审数据：{}", orderId);
 
+        if (orderMapper.updateHandleStatus(
+            orderId, OrderHandleStatus.FINISH.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
+            log.warn("订单：{}正在被处理", orderId);
+            return;
+        }
+
         Order order = orderMapper.selectOrderByOrderId(orderId);
 
         if (! OrderStatus.INIT.getStatus().equals(order.getStatus())) {
@@ -57,6 +64,7 @@ public class OneAuditOrderTransactionalHandler {
         delayQueueServer.sendDelayTask(dqReqDto);
 
         order.setStatus(OrderStatus.AUTO_AUDITING.getStatus());
+        order.setHandleStatus(OrderHandleStatus.FINISH.getStatus());
         order.setUpdateAt(new Date());
         orderMapper.updateByPrimaryKeySelective(order);
 

@@ -1,5 +1,6 @@
 package com.cjyfff.ofc.core.handler.sendwms;
 
+import com.cjyfff.ofc.common.enums.OrderHandleStatus;
 import com.cjyfff.ofc.common.enums.OrderStatus;
 import com.cjyfff.ofc.core.mapper.OrderMapper;
 import com.cjyfff.ofc.core.mapper.OrderStatusExcLogMapper;
@@ -25,6 +26,12 @@ public class OneOrderTransactionalSendWmsHandler {
     public void initOrder(String orderId) throws Exception {
         log.info("处理单个订单发配到WMS数据：{}", orderId);
 
+        if (orderMapper.updateHandleStatus(
+            orderId, OrderHandleStatus.FINISH.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
+            log.warn("订单：{}正在被处理", orderId);
+            return;
+        }
+
         Order order = orderMapper.selectOrderByOrderId(orderId);
 
         if (! OrderStatus.STOCK.getStatus().equals(order.getStatus())) {
@@ -34,6 +41,7 @@ public class OneOrderTransactionalSendWmsHandler {
 
         order.setStatus(OrderStatus.SENDWMS.getStatus());
         order.setUpdateAt(new Date());
+        order.setHandleStatus(OrderHandleStatus.FINISH.getStatus());
         orderMapper.updateByPrimaryKeySelective(order);
 
         OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.SENDWMS.getStatus());

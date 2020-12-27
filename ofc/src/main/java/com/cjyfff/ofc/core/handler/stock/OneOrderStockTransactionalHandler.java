@@ -2,6 +2,7 @@ package com.cjyfff.ofc.core.handler.stock;
 
 import java.util.Date;
 
+import com.cjyfff.ofc.common.enums.OrderHandleStatus;
 import com.cjyfff.ofc.common.enums.OrderStatus;
 import com.cjyfff.ofc.core.mapper.OrderMapper;
 import com.cjyfff.ofc.core.mapper.OrderStatusExcLogMapper;
@@ -28,6 +29,12 @@ public class OneOrderStockTransactionalHandler {
     public void initOrder(String orderId) throws Exception {
         log.info("处理订单库存预占数据：{}", orderId);
 
+        if (orderMapper.updateHandleStatus(
+            orderId, OrderHandleStatus.FINISH.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
+            log.warn("订单：{}正在被处理", orderId);
+            return;
+        }
+
         Order order = orderMapper.selectOrderByOrderId(orderId);
 
         if (! OrderStatus.AUDITED.getStatus().equals(order.getStatus())) {
@@ -37,6 +44,7 @@ public class OneOrderStockTransactionalHandler {
 
         order.setStatus(OrderStatus.STOCK.getStatus());
         order.setUpdateAt(new Date());
+        order.setHandleStatus(OrderHandleStatus.FINISH.getStatus());
         orderMapper.updateByPrimaryKeySelective(order);
 
         OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.INIT.getStatus());
