@@ -38,7 +38,7 @@ public class OneInitOrderHandler {
         } catch (Exception e) {
             log.error("OneInitOrderHandler get error:", e);
         } finally {
-            if (lockObject != null) {
+            if (lockObject != null && lockObject.isLockSuccess()) {
                 ofcRedisClient.tryUnLock(lockObject);
             }
         }
