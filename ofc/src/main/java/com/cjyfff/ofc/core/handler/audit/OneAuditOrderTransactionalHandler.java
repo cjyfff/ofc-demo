@@ -38,6 +38,7 @@ public class OneAuditOrderTransactionalHandler {
     public void auditOrder(String orderId) throws Exception {
         log.info("处理订单自动客审数据：{}", orderId);
 
+        // 避免 Redis 节点 down 时锁丢失，加上 DB 乐观锁。假如采用 zk 等强一致性的分布式锁的话，就不用这一步
         if (orderMapper.updateHandleStatus(
             orderId, OrderHandleStatus.FINISH.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
             log.warn("订单：{}正在被处理", orderId);
