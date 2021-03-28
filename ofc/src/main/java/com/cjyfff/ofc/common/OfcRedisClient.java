@@ -27,10 +27,12 @@ public class OfcRedisClient {
         Config config = new Config();
         config.setTransportMode(TransportMode.NIO);
         config.useSingleServer().setAddress(redisAddress);
-        
-        // 这里我根据((核心数 * 2) + 有效磁盘数)配置 min
+
+        // 这里我根据((核心数 * 2) + 有效磁盘数)配置
+        config.useSingleServer().setConnectionPoolSize(10);
+        // 最小空闲数设为与线程池一样大，表示允许所有线程都空闲，因为线程数配置得不大，所以允许全部空闲而不回收，
+        // 减少创建线程的次数（默认值：与maximumPoolSize相同）
         config.useSingleServer().setConnectionMinimumIdleSize(10);
-        config.useSingleServer().setConnectionPoolSize(30);
         config.useSingleServer().setIdleConnectionTimeout(20000);
         config.useSingleServer().setConnectTimeout(10000);
         config.useSingleServer().setTimeout(10000);
