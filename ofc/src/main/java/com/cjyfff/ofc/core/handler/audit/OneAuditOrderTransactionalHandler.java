@@ -2,7 +2,7 @@ package com.cjyfff.ofc.core.handler.audit;
 
 import com.cjyfff.ofc.common.enums.OrderHandleStatus;
 import com.cjyfff.ofc.common.enums.OrderStatus;
-import com.cjyfff.ofc.core.dq.DelayQueueServer;
+//import com.cjyfff.ofc.core.dq.DelayQueueServer;
 import com.cjyfff.ofc.core.dq.DqAcceptMsgDto;
 import com.cjyfff.ofc.core.mapper.OrderMapper;
 import com.cjyfff.ofc.core.mapper.OrderStatusExcLogMapper;
@@ -29,8 +29,8 @@ public class OneAuditOrderTransactionalHandler {
     @Autowired
     private OrderStatusExcLogMapper orderStatusExcLogMapper;
 
-    @Autowired
-    private DelayQueueServer delayQueueServer;
+//    @Autowired
+//    private DelayQueueServer delayQueueServer;
 
     private static final long AUTO_AUDIT_MILLIS = 300 * 1000;
 
@@ -62,7 +62,7 @@ public class OneAuditOrderTransactionalHandler {
         dqReqDto.setNonceStr(UUID.randomUUID().toString());
         dqReqDto.setDelayTime(10L);
 
-        delayQueueServer.sendDelayTask(dqReqDto);
+//        delayQueueServer.sendDelayTask(dqReqDto);
 
         order.setStatus(OrderStatus.AUTO_AUDITING.getStatus());
         order.setHandleStatus(OrderHandleStatus.FINISH.getStatus());
