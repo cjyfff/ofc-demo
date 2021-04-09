@@ -46,7 +46,7 @@ public class OneInitOrderTransactionalHandler {
         }
 
         // 模拟网络耗时
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(1);
 
         order.setStatus(OrderStatus.INIT.getStatus());
         order.setUpdateAt(new Date());

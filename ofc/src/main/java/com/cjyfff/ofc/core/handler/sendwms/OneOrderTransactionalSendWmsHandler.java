@@ -42,7 +42,7 @@ public class OneOrderTransactionalSendWmsHandler {
         }
 
         // 模拟网络耗时
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(3);
 
         order.setStatus(OrderStatus.SENDWMS.getStatus());
         order.setUpdateAt(new Date());

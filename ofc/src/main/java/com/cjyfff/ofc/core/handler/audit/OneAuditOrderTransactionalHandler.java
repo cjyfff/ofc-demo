@@ -54,7 +54,7 @@ public class OneAuditOrderTransactionalHandler {
         }
 
         // 模拟网络耗时
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(1);
 
         DqAcceptMsgDto dqReqDto = new DqAcceptMsgDto();
         dqReqDto.setTaskId(UUID.randomUUID().toString());
