@@ -1,6 +1,7 @@
 package com.cjyfff.ofc.core.handler.init;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import com.cjyfff.ofc.common.enums.OrderHandleStatus;
 import com.cjyfff.ofc.common.enums.OrderStatus;
@@ -32,7 +33,7 @@ public class OneInitOrderTransactionalHandler {
 
         // 避免 Redis 节点 down 时锁丢失，加上 DB 乐观锁。假如采用 zk 等强一致性的分布式锁的话，就不用这一步
         if (orderMapper.updateHandleStatus(
-            orderId, OrderHandleStatus.FINISH.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
+            orderId, OrderHandleStatus.NOT_DO.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
             log.warn("订单：{}正在被处理", orderId);
             return;
         }
@@ -43,6 +44,9 @@ public class OneInitOrderTransactionalHandler {
             log.warn("订单不是新订单状态，不能初始化：{}", orderId);
             return;
         }
+
+        // 模拟网络耗时
+        TimeUnit.SECONDS.sleep(5);
 
         order.setStatus(OrderStatus.INIT.getStatus());
         order.setUpdateAt(new Date());

@@ -1,8 +1,8 @@
 package com.cjyfff.ofc.config.executor.order;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadPoolExecutor.AbortPolicy;
 
+import com.cjyfff.ofc.common.OrderExecutorRejectPolicy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -20,7 +20,7 @@ public class OrderExecutorConfig {
         taskExecutor.setMaxPoolSize(40);
         taskExecutor.setQueueCapacity(50);
         taskExecutor.setKeepAliveSeconds(60);
-        taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
+        taskExecutor.setRejectedExecutionHandler(new OrderExecutorRejectPolicy());
         taskExecutor.setThreadNamePrefix("initOrderT-");
 
         taskExecutor.initialize();
@@ -35,7 +35,7 @@ public class OrderExecutorConfig {
         taskExecutor.setMaxPoolSize(40);
         taskExecutor.setQueueCapacity(50);
         taskExecutor.setKeepAliveSeconds(60);
-        taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
+        taskExecutor.setRejectedExecutionHandler(new OrderExecutorRejectPolicy());
         taskExecutor.setThreadNamePrefix("auditOrderT-");
 
         taskExecutor.initialize();
@@ -46,11 +46,11 @@ public class OrderExecutorConfig {
     public Executor orderStockExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 
-        taskExecutor.setCorePoolSize(15);
-        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setCorePoolSize(30);
+        taskExecutor.setMaxPoolSize(40);
         taskExecutor.setQueueCapacity(50);
         taskExecutor.setKeepAliveSeconds(60);
-        taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
+        taskExecutor.setRejectedExecutionHandler(new OrderExecutorRejectPolicy());
         taskExecutor.setThreadNamePrefix("orderStockExecutor-");
 
         taskExecutor.initialize();
@@ -61,11 +61,11 @@ public class OrderExecutorConfig {
     public Executor sendOrderWmsExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 
-        taskExecutor.setCorePoolSize(15);
-        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setCorePoolSize(30);
+        taskExecutor.setMaxPoolSize(40);
         taskExecutor.setQueueCapacity(50);
         taskExecutor.setKeepAliveSeconds(60);
-        taskExecutor.setRejectedExecutionHandler(new AbortPolicy());
+        taskExecutor.setRejectedExecutionHandler(new OrderExecutorRejectPolicy());
         taskExecutor.setThreadNamePrefix("sendWmsExecutor-");
 
         taskExecutor.initialize();

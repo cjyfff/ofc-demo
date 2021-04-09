@@ -4,8 +4,11 @@ package com.cjyfff.ofc.common.enums;
  * Created by jiashen on 2020/12/27.
  */
 public enum OrderHandleStatus {
+    NOT_DO(0, "未开始"),
+    PROCESSING(1, "处理中"),
     FINISH(0, "处理完成"),
-    PROCESSING(1, "处理中");
+    ;
+
 
     private Integer status;
 

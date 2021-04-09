@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -28,7 +29,7 @@ public class OneOrderTransactionalSendWmsHandler {
 
         // 避免 Redis 节点 down 时锁丢失，加上 DB 乐观锁。假如采用 zk 等强一致性的分布式锁的话，就不用这一步
         if (orderMapper.updateHandleStatus(
-            orderId, OrderHandleStatus.FINISH.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
+            orderId, OrderHandleStatus.NOT_DO.getStatus(), OrderHandleStatus.PROCESSING.getStatus()) <= 0) {
             log.warn("订单：{}正在被处理", orderId);
             return;
         }
@@ -39,6 +40,9 @@ public class OneOrderTransactionalSendWmsHandler {
             log.warn("订单不是已分配库存状态，不能发送到WMS：{}", orderId);
             return;
         }
+
+        // 模拟网络耗时
+        TimeUnit.SECONDS.sleep(10);
 
         order.setStatus(OrderStatus.SENDWMS.getStatus());
         order.setUpdateAt(new Date());

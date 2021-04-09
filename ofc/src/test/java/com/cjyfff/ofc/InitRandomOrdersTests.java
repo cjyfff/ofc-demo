@@ -3,6 +3,8 @@ package com.cjyfff.ofc;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.cjyfff.ofc.common.enums.OrderHandleStatus;
+import com.cjyfff.ofc.common.enums.OrderStatus;
 import com.cjyfff.ofc.core.mapper.OrderMapper;
 import com.cjyfff.ofc.core.model.Order;
 import org.junit.Test;
@@ -21,11 +23,9 @@ public class InitRandomOrdersTests {
     @Autowired
     private OrderMapper orderMapper;
 
-    private final static int TOTAL_ORDERS = 1000;
+    private final static int TOTAL_ORDERS = 10000;
 
-    private final static int ORDER_STATUS = 300;
-
-    //@Test
+    @Test
     public void initOrders() {
         String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
@@ -33,7 +33,8 @@ public class InitRandomOrdersTests {
             Order order = new Order();
             String orderId = "D" + date + String.valueOf((int) ((Math.random() * 9 + 1) * Math.pow(10, 9 - 1)));
             order.setOrderId(orderId);
-            order.setStatus(ORDER_STATUS);
+            order.setHandleStatus(OrderHandleStatus.NOT_DO.getStatus());
+            order.setStatus(OrderStatus.NEW.getStatus());
             order.setCreateAt(new Date());
             order.setUpdateAt(new Date());
             orderMapper.insertSelective(order);
