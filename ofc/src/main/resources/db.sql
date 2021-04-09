@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `order_id` char(24) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单id',
+  `handle_status` int(12) NULL DEFAULT NULL COMMENT '处理状态',
   `status` int(12) NULL DEFAULT NULL COMMENT '订单状态',
   `create_at` timestamp(6) NULL DEFAULT NULL COMMENT '创建时间',
   `update_at` timestamp(6) NULL DEFAULT NULL COMMENT '修改时间',
