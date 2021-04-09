@@ -52,11 +52,11 @@ public class OneOrderStockTransactionalHandler {
         order.setHandleStatus(OrderHandleStatus.FINISH.getStatus());
         orderMapper.updateByPrimaryKeySelective(order);
 
-        OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.INIT.getStatus());
+        OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.STOCK.getStatus());
         if (orderStatusExcLog == null) {
             orderStatusExcLog = new OrderStatusExcLog();
             orderStatusExcLog.setOrderId(orderId);
-            orderStatusExcLog.setStatus(OrderStatus.INIT.getStatus());
+            orderStatusExcLog.setStatus(OrderStatus.STOCK.getStatus());
             orderStatusExcLog.setStatusExcTime(1);
             orderStatusExcLog.setCreateAt(new Date());
             orderStatusExcLogMapper.insertSelective(orderStatusExcLog);

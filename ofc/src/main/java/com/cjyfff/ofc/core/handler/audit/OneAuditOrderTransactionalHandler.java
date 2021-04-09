@@ -73,11 +73,11 @@ public class OneAuditOrderTransactionalHandler {
         order.setUpdateAt(new Date());
         orderMapper.updateByPrimaryKeySelective(order);
 
-        OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.AUTO_AUDITING.getStatus());
+        OrderStatusExcLog orderStatusExcLog = orderStatusExcLogMapper.selectByOrderIdAndStatus(orderId, OrderStatus.AUDITED.getStatus());
         if (orderStatusExcLog == null) {
             orderStatusExcLog = new OrderStatusExcLog();
             orderStatusExcLog.setOrderId(orderId);
-            orderStatusExcLog.setStatus(OrderStatus.AUTO_AUDITING .getStatus());
+            orderStatusExcLog.setStatus(OrderStatus.AUDITED .getStatus());
             orderStatusExcLog.setStatusExcTime(1);
             orderStatusExcLog.setCreateAt(new Date());
             orderStatusExcLogMapper.insertSelective(orderStatusExcLog);
