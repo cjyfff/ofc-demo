@@ -3,6 +3,7 @@ package com.cjyfff.ofc.config.executor.order;
 import java.util.concurrent.Executor;
 
 import com.cjyfff.ofc.common.OrderExecutorRejectPolicy;
+import com.cjyfff.ofc.config.executor.OrderExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -24,6 +25,8 @@ public class OrderExecutorConfig {
         taskExecutor.setThreadNamePrefix("initOrderT-");
 
         taskExecutor.initialize();
+
+        OrderExecutor.initOrderExecutor = taskExecutor;
         return taskExecutor;
     }
 
@@ -39,6 +42,8 @@ public class OrderExecutorConfig {
         taskExecutor.setThreadNamePrefix("auditOrderT-");
 
         taskExecutor.initialize();
+
+        OrderExecutor.auditOrderExecutor = taskExecutor;
         return taskExecutor;
     }
 
@@ -54,6 +59,8 @@ public class OrderExecutorConfig {
         taskExecutor.setThreadNamePrefix("orderStockExecutor-");
 
         taskExecutor.initialize();
+
+        OrderExecutor.orderStockExecutor = taskExecutor;
         return taskExecutor;
     }
 
@@ -69,6 +76,8 @@ public class OrderExecutorConfig {
         taskExecutor.setThreadNamePrefix("sendWmsExecutor-");
 
         taskExecutor.initialize();
+
+        OrderExecutor.sendOrderWmsExecutor = taskExecutor;
         return taskExecutor;
     }
 }
