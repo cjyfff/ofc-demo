@@ -1,6 +1,5 @@
-package com.cjyfff.ofc.core.service;
+package com.cjyfff.ofc.config.executor;
 
-import com.cjyfff.ofc.config.executor.OrderExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +10,9 @@ public class DynamicExecutorConfigService {
     public void changeConfig(Integer type, Integer corePoolSize, Integer maxPoolSize, Integer queueCapacity) {
         checkParams(corePoolSize, maxPoolSize, queueCapacity);
 
-        ThreadPoolTaskExecutor executor;
-        switch (type) {
-            case 1:
-                executor = OrderExecutor.initOrderExecutor;
-                break;
-            case 2:
-                executor = OrderExecutor.auditOrderExecutor;
-                break;
-            case 3:
-                executor = OrderExecutor.orderStockExecutor;
-                break;
-            case 4:
-                executor = OrderExecutor.sendOrderWmsExecutor;
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal executor type");
+        ThreadPoolTaskExecutor executor = DynamicExecutorTypeSelector.getExecutorByType(type);
+        if (executor == null) {
+            throw new IllegalArgumentException("Illegal executor type");
         }
 
         if (corePoolSize != null) {
